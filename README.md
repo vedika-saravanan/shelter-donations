@@ -18,7 +18,7 @@ It provides RESTful APIs to create, read, update, and delete donation records fo
 
 ## Setup Instructions
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/<your-repo>/shelter-donations.git
 cd shelter-donations
