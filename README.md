@@ -1,5 +1,3 @@
-# shelter-donations
-
 # 1. Shelter Donations — Backend (FastAPI)
 
 This is the backend service for the **Shelter Donations** full-stack application.  
