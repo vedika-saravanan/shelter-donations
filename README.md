@@ -81,7 +81,7 @@ Example using curl:
 # Create a new donation
 curl -X POST http://127.0.0.1:8000/donations \
   -H "Content-Type: application/json" \
-  -d '{"donor_name": "Amy", "donation_type": "food", "amount": 10, "date": "2025-10-07"}'
+  -d '{"donor_name": "Vedika", "donation_type": "food", "amount": 10, "date": "2025-10-07"}'
 
 # List all donations
 curl http://127.0.0.1:8000/donations
