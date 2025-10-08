@@ -30,7 +30,7 @@ The Swagger UI provides interactive API testing for all CRUD endpoints — Creat
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/<your-repo>/shelter-donations.git
+git clone https://github.com/vedika-saravanan/shelter-donations.git
 cd shelter-donations
 ```
 
@@ -41,7 +41,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-If you're on Windows, use:
+If on Windows, use:
 ```bash
 .venv\Scripts\activate
 ```
@@ -55,13 +55,13 @@ pip install -r app/requirements.txt
 
 ## Running the Backend
 
-Run Uvicorn using your virtual environment’s Python executable:
+Run Uvicorn using virtual environment’s Python executable:
 
 ```bash
 ./.venv/bin/python -m uvicorn app.main:app --reload --port 8000 --app-dir backend
 ```
 
-Alternate (if your shell is already inside .venv and in the backend/ folder)
+Alternate (if the shell is already inside .venv and in the backend/ folder)
 
 ```bash
 uvicorn app.main:app --reload --port 8000
@@ -212,7 +212,7 @@ http://localhost:5173
 
 ### Step 3: Test End-to-End Workflow
 
-1. Open http://localhost:5173 in your browser.
+1. Open http://localhost:5173 in browser.
 2. Add a new donation (e.g., name: Vedika, type: money, amount: 100).
 3. Check the backend at http://127.0.0.1:8000/docs to confirm the record is stored.
 4. Toggle Admin Mode to edit or delete existing donations.
