@@ -120,6 +120,7 @@ Below is the Halloween-themed frontend interface built using React + Vite.
 ![Frontend UI](./etc/frontend.png)
 
 The interface includes a responsive layout, animated highlights, and Admin Mode for secure CRUD control.
+
 ---
 
 ## Tech Stack
