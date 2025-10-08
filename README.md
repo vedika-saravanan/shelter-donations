@@ -125,10 +125,10 @@ The interface includes a responsive layout, animated highlights, and Admin Mode 
 
 ## Tech Stack
 
-Language: TypeScript
-Framework: React 18 + Vite
-Styling: Custom CSS (Halloween theme 🎃)
-Package Manager: npm
+- **Language:** TypeScript
+- **Framework:** React 18 + Vite
+- **Styling:** Custom CSS (Halloween theme)
+- **Package Manager:** npm
 
 ---
 
@@ -162,7 +162,7 @@ http://localhost:5173
 - Choose “Make my donation anonymous 🕯️” to hide donor identity.
 - View total donations and list of all recorded donations.
 - Edit or delete donations (visible only in Admin Mode).
-- Halloween-themed responsive design 🎃.
+- Halloween-themed responsive design.
 
 ## Admin Mode (Access Control)
 
@@ -255,4 +255,4 @@ This full-stack application demonstrates:
 - CRUD workflow
 - API persistence with SQLite
 - Secure design thinking (RBAC simulation)
-- UI/UX theming (Halloween Edition 🎃)
+- UI/UX theming (Halloween Edition)
