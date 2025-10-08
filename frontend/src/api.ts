@@ -6,7 +6,7 @@ export interface Donation {
   date: string;
 }
 
-// Base API URL — adjust if your backend runs elsewhere
+// Base API URL
 const BASE_URL = "http://127.0.0.1:8000";
 
 /**
@@ -36,7 +36,7 @@ export async function addDonation(donation: {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...donation,
-      date: today, // ✅ include required date field
+      date: today, // include required date field
     }),
   });
 

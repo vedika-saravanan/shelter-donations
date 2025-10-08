@@ -1,7 +1,29 @@
+/**
+ * App.tsx
+ * --------
+ * Main React component for the Shelter Donations full-stack web application.
+ * 
+ * Features:
+ *  - Displays donation input form and a list of all recorded donations.
+ *  - Allows users to add, edit, or delete donations.
+ *  - Supports anonymous donations.
+ *  - Shows categorized totals (money, food, clothing, supplies).
+ *  - Includes a demo Admin Mode toggle for restricted CRUD visibility.
+ * 
+ * Notes:
+ *  - The component communicates with a FastAPI backend via REST API.
+ *  - All donation data is persisted in the backend (SQLite database).
+ */
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { getDonations, addDonation, deleteDonation, Donation } from "./api";
 
+/**
+ * Root component for the Shelter Donations frontend.
+ * 
+ * @returns {JSX.Element} A complete single-page donation management interface.
+ */
 function App() {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -12,25 +34,35 @@ function App() {
   const [editId, setEditId] = useState<number | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  /** Fetch all donations from backend on first render */
   useEffect(() => {
     fetchDonations();
   }, []);
 
+  /**
+   * Fetches donation list from the backend and updates state.
+   */
   const fetchDonations = async () => {
     try {
       const data = await getDonations();
-      setDonations(data.reverse());
+      setDonations(data.reverse()); // show latest first
     } catch (error) {
       console.error("Error fetching donations:", error);
     }
   };
 
+  /**
+   * Handles donation form submission — adds or updates a donation record.
+   * 
+   * @param {React.FormEvent} e - Form submit event.
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const donorName = anonymous ? "Anonymous Spirit 👻" : name;
 
     try {
       if (editId) {
+        // Update existing donation
         await fetch(`http://127.0.0.1:8000/donations/${editId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -43,12 +75,15 @@ function App() {
         });
         setEditId(null);
       } else {
+        // Create new donation
         await addDonation({
           donor_name: donorName,
           donation_type: type,
           amount: Number(amount),
         });
       }
+
+      // Reset form fields and refresh list
       setName("");
       setAmount("");
       setType("money");
@@ -60,6 +95,11 @@ function App() {
     }
   };
 
+  /**
+   * Loads donation data into form for editing.
+   * 
+   * @param {Donation} donation - Donation object to be edited.
+   */
   const handleEdit = (donation: Donation) => {
     setEditId(donation.id!);
     setName(donation.donor_name.includes("Anonymous") ? "" : donation.donor_name);
@@ -69,6 +109,11 @@ function App() {
     setAnonymous(donation.donor_name.includes("Anonymous"));
   };
 
+  /**
+   * Deletes a donation from backend after user confirmation.
+   * 
+   * @param {number} id - Donation record ID.
+   */
   const handleDelete = async (id: number) => {
     if (!window.confirm("Are you sure you want to delete this donation?")) return;
     try {
@@ -79,7 +124,9 @@ function App() {
     }
   };
 
-  // ✅ Compute totals by category
+  /**
+   * Computes total donations grouped by type (money, food, etc.).
+   */
   const totals = donations.reduce(
     (acc, d) => {
       const type = d.donation_type.toLowerCase();
@@ -94,10 +141,13 @@ function App() {
   const clothingTotal = totals["clothing"] || 0;
   const suppliesTotal = totals["supplies"] || 0;
 
-  // Helper for pluralization
+  /** Helper for pluralizing units (meal → meals, box → boxes) */
   const pluralize = (count: number, singular: string, plural: string) =>
     count === 1 ? singular : plural;
 
+  // ---------------------------------------------------------------------------
+  // UI Rendering
+  // ---------------------------------------------------------------------------
   return (
     <div className="container">
       <h1>
@@ -105,7 +155,7 @@ function App() {
       </h1>
       <p className="spooky-banner">Spreading kindness this Halloween 🎃🧡</p>
 
-      {/* ✅ Totals Section */}
+      {/* 💰 Totals Summary */}
       <div className="totals-container">
         <p className="total-banner">💰 Money raised: ${moneyTotal.toLocaleString()}</p>
         <p className="total-banner">🍖 Meals donated: {foodTotal}</p>
@@ -113,7 +163,7 @@ function App() {
         <p className="total-banner">🎁 Supply boxes: {suppliesTotal}</p>
       </div>
 
-      {/* 🎩 Admin Toggle */}
+      {/* 🎩 Admin Mode Toggle */}
       <button
         className={`admin-toggle ${isAdmin ? "enabled" : ""}`}
         onClick={() => setIsAdmin(!isAdmin)}
@@ -121,6 +171,7 @@ function App() {
         {isAdmin ? "🔒 Admin Mode: ON" : "🔓 Admin Mode: OFF"}
       </button>
 
+      {/* 📝 Donation Form */}
       <form onSubmit={handleSubmit}>
         <label>Donor Name:</label>
         <input
@@ -167,6 +218,7 @@ function App() {
         <button type="submit">{editId ? "Update Donation" : "Donate"}</button>
       </form>
 
+      {/* 🕯️ Donation List */}
       <h2>🕯️ Recent Donations</h2>
       <div className="donations-list">
         {donations.length > 0 ? (

@@ -23,20 +23,59 @@ app.add_middleware(
 
 @app.get("/healthz")
 def healthz():
+    """
+    Health check endpoint to verify API availability.
+
+    Returns:
+        dict: JSON object containing service status and current date.
+    """
     return {"ok": True, "today": date.today().isoformat()}
 
 # --- Donations CRUD ---
 
 @app.get("/donations", response_model=List[schemas.DonationRead])
 def list_donations(db: Session = Depends(get_db)):
+    """
+    Retrieve all donation records from the database.
+
+    Args:
+        db (Session): SQLAlchemy database session dependency.
+
+    Returns:
+        List[DonationRead]: List of all donation records.
+    """
     return crud.list_donations(db)
 
 @app.post("/donations", response_model=schemas.DonationRead, status_code=201)
 def create_donation(donation: schemas.DonationCreate, db: Session = Depends(get_db)):
+    """
+    Create a new donation record.
+
+    Args:
+        donation (DonationCreate): Donation data including donor name, type, amount, and date.
+        db (Session): SQLAlchemy database session dependency.
+
+    Returns:
+        DonationRead: The newly created donation record.
+    """
     return crud.create_donation(db, donation)
 
 @app.put("/donations/{donation_id}", response_model=schemas.DonationRead)
 def update_donation(donation_id: int, patch: schemas.DonationUpdate, db: Session = Depends(get_db)):
+    """
+    Update an existing donation record by ID.
+
+    Args:
+        donation_id (int): The ID of the donation to update.
+        patch (DonationUpdate): Updated donation fields.
+        db (Session): SQLAlchemy database session dependency.
+
+    Raises:
+        HTTPException: If the donation record is not found.
+
+    Returns:
+        DonationRead: The updated donation record.
+    """
     updated = crud.update_donation(db, donation_id, patch)
     if not updated:
         raise HTTPException(status_code=404, detail="Donation not found")
@@ -44,6 +83,20 @@ def update_donation(donation_id: int, patch: schemas.DonationUpdate, db: Session
 
 @app.delete("/donations/{donation_id}", status_code=204)
 def delete_donation(donation_id: int, db: Session = Depends(get_db)):
+    """
+    Update an existing donation record by ID.
+
+    Args:
+        donation_id (int): The ID of the donation to update.
+        patch (DonationUpdate): Updated donation fields.
+        db (Session): SQLAlchemy database session dependency.
+
+    Raises:
+        HTTPException: If the donation record is not found.
+
+    Returns:
+        DonationRead: The updated donation record.
+    """
     ok = crud.delete_donation(db, donation_id)
     if not ok:
         raise HTTPException(status_code=404, detail="Donation not found")

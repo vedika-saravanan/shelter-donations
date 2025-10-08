@@ -1,9 +1,25 @@
+/*
+ * App.css
+ * --------
+ * Halloween-themed stylesheet for the Shelter Donations frontend.
+ * 
+ * This file defines the layout, colors, and visual style for the React
+ * single-page donation management app. It includes responsive containers,
+ * themed components, and subtle glow effects to match the Halloween design.
+ */
+
+/* ---------------------------------------------------------------------------
+   Global Styles
+--------------------------------------------------------------------------- */
 body {
   background: #f5f3f0;
   background-image: url("https://www.transparenttextures.com/patterns/dust.png");
   font-family: "Poppins", sans-serif;
 }
 
+/* ---------------------------------------------------------------------------
+   Main Container
+--------------------------------------------------------------------------- */
 .container {
   background: #1b1b1b;
   color: #f8f8f8;
@@ -15,6 +31,9 @@ body {
   text-align: center;
 }
 
+/* ---------------------------------------------------------------------------
+   Headers and Text
+--------------------------------------------------------------------------- */
 h1 {
   color: #ff7518;
   text-shadow: 0 0 10px #ff7518;
@@ -25,7 +44,9 @@ h1 {
   font-style: italic;
 }
 
-
+/* ---------------------------------------------------------------------------
+   Form Elements
+--------------------------------------------------------------------------- */
 form {
   display: flex;
   flex-direction: column;
@@ -59,6 +80,9 @@ button:hover {
   box-shadow: 0 0 10px #ff7518;
 }
 
+/* ---------------------------------------------------------------------------
+   Checkbox Group
+--------------------------------------------------------------------------- */
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -67,9 +91,14 @@ button:hover {
   color: #f5a623;
 }
 
+/* ---------------------------------------------------------------------------
+   Donation List Styles
+--------------------------------------------------------------------------- */
 .donations-list {
   margin-top: 1rem;
   text-align: left;
+  line-height: 1.5;
+  font-size: 1rem;
 }
 
 .donation-item {
@@ -80,18 +109,20 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px; /* controls space between text and date */
+  gap: 8px;
   color: #fff;
   box-shadow: 0 0 8px #ff7518;
   line-height: 1.4;
 }
-
 
 .donation-item.anonymous {
   opacity: 0.85;
   text-shadow: 0 0 10px #ff7518;
 }
 
+/* ---------------------------------------------------------------------------
+   Action Buttons (Edit/Delete)
+--------------------------------------------------------------------------- */
 .actions button {
   background: transparent;
   color: #ffbb73;
@@ -106,6 +137,9 @@ button:hover {
   transform: scale(1.1);
 }
 
+/* ---------------------------------------------------------------------------
+   Admin Toggle Button
+--------------------------------------------------------------------------- */
 .admin-toggle {
   background: #333;
   color: #ffa94d;
@@ -130,15 +164,16 @@ button:hover {
   box-shadow: 0 0 10px #ffbb73;
 }
 
+/* ---------------------------------------------------------------------------
+   Donation Text Highlights
+--------------------------------------------------------------------------- */
 .donation-item strong {
   margin: 0 4px;
 }
 
-.donations-list {
-  line-height: 1.5;
-  font-size: 1rem;
-}
-
+/* ---------------------------------------------------------------------------
+   Totals Section
+--------------------------------------------------------------------------- */
 .totals-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -160,4 +195,3 @@ button:hover {
   text-align: center;
   font-size: 1rem;
 }
-
